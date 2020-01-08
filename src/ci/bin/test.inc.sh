@@ -60,6 +60,7 @@ cromwell::private::create_build_variables() {
 
     CROMWELL_BUILD_HOME_DIRECTORY="${HOME}"
     CROMWELL_BUILD_ROOT_DIRECTORY="$(pwd)"
+    CROMWELL_BUILD_SBT_DIRECTORY="${HOME}/.sbt"
     CROMWELL_BUILD_LOG_DIRECTORY="${CROMWELL_BUILD_ROOT_DIRECTORY}/target/ci/logs"
     CROMWELL_BUILD_CROMWELL_LOG="${CROMWELL_BUILD_LOG_DIRECTORY}/cromwell.log"
 
@@ -637,6 +638,8 @@ cromwell::private::verify_secure_build() {
 cromwell::private::exec_test_script() {
     local upper_build_type
     upper_build_type="$(tr '[:lower:]' '[:upper:]' <<< "${CROMWELL_BUILD_TYPE:0:1}")${CROMWELL_BUILD_TYPE:1}"
+    mkdir -p ${CROMWELL_BUILD_SBT_DIRECTORY}
+    cp "${CROMWELL_BUILD_ROOT_DIRECTORY}/src/ci/repositories" "${CROMWELL_BUILD_SBT_DIRECTORY}"
     exec "${CROMWELL_BUILD_SCRIPTS_DIRECTORY}/test${upper_build_type}.sh"
 }
 
@@ -955,7 +958,7 @@ cromwell::private::assemble_jars() {
     # CROMWELL_BUILD_SBT_ASSEMBLY_COMMAND allows for an override of the default `assembly` command for assembly.
     # This can be useful to reduce time and memory that might otherwise be spent assembling unused subprojects.
     # shellcheck disable=SC2086
-    CROMWELL_SBT_ASSEMBLY_LOG_LEVEL=error sbt -Dsbt.repository.config=${CROMWELL_BUILD_ROOT_DIRECTORY}/src/ci/repositories --warn coverage ${CROMWELL_BUILD_SBT_ASSEMBLY_COMMAND} -error
+    CROMWELL_SBT_ASSEMBLY_LOG_LEVEL=error sbt --warn coverage ${CROMWELL_BUILD_SBT_ASSEMBLY_COMMAND} -error
 }
 
 cromwell::private::setup_prior_version_resources() {
