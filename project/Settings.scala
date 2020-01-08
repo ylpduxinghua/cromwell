@@ -123,6 +123,9 @@ object Settings {
                            projectName: String,
                            dependencies: Seq[ModuleID],
                            builders: Seq[Project => Project]): Project = {
+
+    ivyLoggingLevel := UpdateLogging.Quiet
+
     val projectSettings = List(
       name := projectName,
       libraryDependencies ++= dependencies
