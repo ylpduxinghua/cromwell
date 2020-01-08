@@ -18,7 +18,8 @@ object Settings {
     Resolver.jcenterRepo,
     "Broad Artifactory Releases" at "https://broadinstitute.jfrog.io/broadinstitute/libs-release/",
     "Broad Artifactory Snapshots" at "https://broadinstitute.jfrog.io/broadinstitute/libs-snapshot/",
-    Resolver.sonatypeRepo("releases")
+    Resolver.sonatypeRepo("releases"),
+    "Google Mirror of Maven Central" at "https://maven-central.storage-download.googleapis.com/maven2/"
   )
 
   /* The reason why -Xmax-classfile-name is set is because this will fail
