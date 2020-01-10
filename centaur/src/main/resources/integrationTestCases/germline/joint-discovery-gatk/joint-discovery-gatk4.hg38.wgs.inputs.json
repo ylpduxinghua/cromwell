@@ -68,7 +68,7 @@
   "JointGenotyping.GenotypeGVCFs.mem_size": "7 GB",
   "JointGenotyping.FinalGatherVcf.mem_size": "7 GB",
   "JointGenotyping.SitesOnlyGatherVcf.mem_size": "7 GB",
-  "JointGenotyping.SNPsVariantRecalibratorScattered.mem_size": "3.5 GB",
+  "JointGenotyping.SNPsVariantRecalibratorScattered.mem_size": "4.0 GB",
   "JointGenotyping.SNPsVariantRecalibratorCreateModel.mem_size": "104 GB",
   "JointGenotyping.DynamicallyCombineIntervals.mem_size": "3 GB",
   "JointGenotyping.GatherMetrics.mem_size": "3 GB",
