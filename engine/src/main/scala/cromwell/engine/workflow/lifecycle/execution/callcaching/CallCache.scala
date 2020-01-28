@@ -20,7 +20,7 @@ import wom.core._
 
 import scala.concurrent.{ExecutionContext, Future}
 
-final case class CallCachingEntryId(id: Int)
+final case class CallCachingEntryId(id: Long)
 /**
   * Given a database-layer CallCacheStore, this accessor can access the database with engine-friendly data types.
   */

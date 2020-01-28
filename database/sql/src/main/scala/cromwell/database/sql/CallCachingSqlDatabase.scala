@@ -12,16 +12,16 @@ trait CallCachingSqlDatabase {
                                                      (implicit ec: ExecutionContext): Future[Boolean]
 
   def findCacheHitForAggregation(baseAggregationHash: String, inputFilesAggregationHash: Option[String], callCachePathPrefixes: Option[List[String]], hitNumber: Int)
-                                (implicit ec: ExecutionContext): Future[Option[Int]]
+                                (implicit ec: ExecutionContext): Future[Option[Long]]
 
-  def queryResultsForCacheId(callCachingEntryId: Int)
+  def queryResultsForCacheId(callCachingEntryId: Long)
                             (implicit ec: ExecutionContext): Future[Option[CallCachingJoin]]
   
   def callCacheJoinForCall(workflowExecutionUuid: String, callFqn: String, index: Int)
                           (implicit ec: ExecutionContext): Future[Option[CallCachingJoin]]
 
-  def invalidateCall(callCachingEntryId: Int)
+  def invalidateCall(callCachingEntryId: Long)
                     (implicit ec: ExecutionContext): Future[Option[CallCachingEntry]]
 
-  def callCacheEntryIdsForWorkflowId(workflowExecutionUuid: String)(implicit ec: ExecutionContext): Future[Seq[Int]]
+  def callCacheEntryIdsForWorkflowId(workflowExecutionUuid: String)(implicit ec: ExecutionContext): Future[Seq[Long]]
 }

@@ -16,7 +16,7 @@ trait CallCachingAggregationEntryComponent {
 
     def inputFilesAggregation = column[Option[String]]("INPUT_FILES_AGGREGATION", O.Length(255))
 
-    def callCachingEntryId = column[Int]("CALL_CACHING_ENTRY_ID")
+    def callCachingEntryId = column[Long]("CALL_CACHING_ENTRY_ID")
 
     override def * = (baseAggregation, inputFilesAggregation, callCachingEntryId.?, callCachingAggregationEntryId.?) <>
       (CallCachingAggregationEntry.tupled, CallCachingAggregationEntry.unapply)
@@ -34,7 +34,7 @@ trait CallCachingAggregationEntryComponent {
     callCachingAggregationEntries.map(_.callCachingAggregationEntryId)
   
   val callCachingAggregationForCacheEntryId = Compiled(
-    (callCachingEntryId: Rep[Int]) => for {
+    (callCachingEntryId: Rep[Long]) => for {
       callCachingAggregationEntry <- callCachingAggregationEntries 
       if callCachingAggregationEntry.callCachingEntryId === callCachingEntryId
     } yield callCachingAggregationEntry
