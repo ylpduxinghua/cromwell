@@ -140,6 +140,7 @@ private::determine_requester_pays() {
   if [[ ${attempt} -gt ${max_attempts} ]]; then
     echo "Error attempting to localize file with command: '$command'"
     cat ${gsutil_log}
+    exit 1
   fi
 }
 
