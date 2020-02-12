@@ -34,7 +34,8 @@ object OutputEvaluator {
                       postMapper: WomValue => Try[WomValue] = v => Success(v))(implicit ec: ExecutionContext): Future[EvaluatedJobOutputs] = {
     // FIXME: the taskInputValues WomFiles are apparently never adjusted to their localized-to paths.
     // FIXME: how has this been like this for so long?
-    val taskInputValues: Map[String, WomValue] = localizedInputs.get map { case (k, v) => k.name -> v }
+    val taskInputValues: Map[String, WomValue] = jobDescriptor.evaluatedTaskInputs map { case (k, v) => k.name -> valueMapper(v) }
+    // val taskInputValues: Map[String, WomValue] = localizedInputs.get map { case (k, v) => k.name -> v }
 
     def foldFunction(accumulatedOutputs: Try[ErrorOr[List[(OutputPort, WomValue)]]], output: ExpressionBasedOutputPort) = accumulatedOutputs flatMap { accumulated =>
       // Extract the valid pairs from the job outputs accumulated so far, and add to it the inputs (outputs can also reference inputs)
