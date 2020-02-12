@@ -125,6 +125,6 @@ trait BackendJobExecutionActor extends BackendJobLifecycleActor with ActorLoggin
 
   def evaluateOutputs(wdlFunctions: IoFunctionSet,
                       postMapper: WomValue => Try[WomValue] = v => Success(v))(implicit ec: ExecutionContext): EvaluatedJobOutputs = {
-    Await.result(OutputEvaluator.evaluateOutputs(jobDescriptor, wdlFunctions, postMapper), Duration.Inf)
+    Await.result(OutputEvaluator.evaluateOutputs(jobDescriptor, wdlFunctions, identity: WomValue => WomValue, postMapper), Duration.Inf)
   }
 }

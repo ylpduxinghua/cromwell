@@ -12,11 +12,15 @@ task foo {
 
 task bar {
   File foo
+  String otherFile = foo + ".foo"
   command {
     gzip ${foo}
+    echo -n "${foo}.gz"
   }
   output {
     File bar = "${foo}.gz"
+    File bar2 = read_string(stdout())
+
   }
   runtime {
     docker: "ubuntu:latest"
