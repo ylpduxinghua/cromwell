@@ -31,8 +31,10 @@ object Dependencies {
   private val googleApiClientV = "1.28.0"
   private val googleCloudCoreV = "1.61.0"
   private val googleCloudKmsV = "v1-rev63-1.25.0"
-  private val googleCloudMonitoringV = "1.70.0"
+  private val googleCloudMonitoringV = "1.100.1"
   private val googleCloudNioV = "0.61.0-alpha"
+  private val googleCloudStorageV = "1.111.1"
+  private val googleGaxGrpcV = "1.57.0"
   private val googleGenomicsServicesV1ApiV = "v1alpha2-rev495-1.23.0"
   private val googleGenomicsServicesV2Alpha1ApiV = "v2alpha1-rev31-1.25.0"
   private val googleLifeSciencesServicesV2BetaApiV = "v2beta-rev5-1.25.0"
@@ -171,7 +173,7 @@ object Dependencies {
 
   val implDrsDependencies = List(
     "org.apache.commons" % "commons-lang3" % commonsLang3V,
-    "com.google.cloud" % "google-cloud-storage" % googleCloudCoreV,
+    "com.google.cloud" % "google-cloud-storage" % googleCloudStorageV,
     "com.google.oauth-client" % "google-oauth-client" % googleApiClientV
   ) ++ circeDependencies ++ catsDependencies
 
@@ -504,6 +506,10 @@ object Dependencies {
 
   val hybridCarboniteMetadataServiceDependencies = List(
     "net.thisptr" % "jackson-jq" % jacksonJqV % Test
+  )
+
+  val servicesDependencies = List(
+    "com.google.api" % "gax-grpc" % googleGaxGrpcV % Test
   )
 
   val serverDependencies = slf4jBindingDependencies
