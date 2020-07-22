@@ -296,11 +296,14 @@ sealed abstract class ExecutionStore private[stores](statusStore: Map[JobKey, Ex
     // If we found unstartable keys, update their status, and set needsUpdate to true (it might unblock other keys)
     val updated = if (internalUpdates.nonEmpty) {
       updateKeys(internalUpdates, needsUpdate = true)
-      // If the list was truncated, set needsUpdate to true because we'll need to do this again to get the truncated keys
-    } else if (truncated) {
+      // If the list was truncated, set needsUpdate to true because we'll need to do this again to get the truncated keys.
+      // Also if the queued jobs are above the threshold it's possible some jobs might become unqueued in the interim.
+    } else if (truncated || queuedJobsAboveThreshold) {
       withNeedsUpdateTrue
+    } else {
       // Otherwise we can reset it, nothing else will be runnable / unstartable until some new keys become terminal
-    } else withNeedsUpdateFalse
+      withNeedsUpdateFalse
+    }
 
     // Only take the first ExecutionStore.MaxJobsToStartPerTick from the above list.
     ExecutionStoreUpdate(keysToStartPlusOne.take(MaxJobsToStartPerTick), updated, internalUpdates)
